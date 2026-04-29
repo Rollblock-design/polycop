@@ -10,6 +10,16 @@ app.post(`/bot${process.env.BOT_TOKEN}`, (req, res) => {
     bot.processUpdate(req.body);
     res.sendStatus(200);
 });
+app.get("/", (req, res) => {
+    res.status(200).send("Bot is running");
+});
+
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        uptime: process.uptime()
+    });
+});
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 
